@@ -1,0 +1,15 @@
+
+
+
+{?delete_enable}
+<a class="bookname" href="#NoteBook/{notebookID}">{notebookName}<span class="ui-li-count">{notes_num}</span></a>
+
+<a href="#" class="deleteNotebookButton deleteButton" data-rel="popup" data-name="{notebookName}"data-id="{notebookID}"data-position-to="window" data-transition="pop">Delete</a>
+
+{:else}
+<a class="bookname" href="#PublicNoteBook/{notebookID}">{notebookName}<span class="ui-li-count">{notes_num}</span></a>
+
+
+
+
+{/delete_enable}

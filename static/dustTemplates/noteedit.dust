@@ -1,0 +1,20 @@
+{?publicNoteTag}
+	<div data-theme="a" data-content-theme="a">
+	    <h1>{noteName}</h1>
+	    <p>
+			{noteContent}
+		</p>
+	</div>
+{:else}
+	<div>
+		<label for="basic">Title:</label>
+	    <input type="text" name="name" id="noteName" value="{noteName}"  />
+	</div>
+	<div>
+		<label for="textarea-a">Text:</label>
+		<textarea name="textarea" id="noteContent">
+			{noteContent}
+		</textarea>
+	</div>
+	<a data-role="button" class="ui-btn-right" data-inline="true" data-theme="b"  id="saveNoteButton">Save</a>
+{/publicNoteTag}

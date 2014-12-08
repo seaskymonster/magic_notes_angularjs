@@ -1,0 +1,9 @@
+<div class="content">
+	
+	<div>{noteID}</div>
+	<div>{noteName}</div>
+	<div>{notebook_id}</div>
+	<div>{create_date}</div>
+	<div>{content}</div>
+	
+</div>

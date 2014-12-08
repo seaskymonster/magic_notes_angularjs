@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<title> Creatzy Notes </title>
+		<meta name="viewport" content="user-scalable=0, initial-scale=1.0">		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="apple-touch-icon-precomposed" href="img/icon.png"/>
+		<link rel="apple-touch-startup-image" href="img/splash.jpg" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<script type="text/javascript" src="lib/jquery-1.8.2.min.js"></script>
+		<script type="text/javascript" src="lib/jquery.mobile-1.3.1.min.js"></script>
+		<script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.js"></script>
+		<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.2.custom.min.css" />
+		<script src="lib/jquery-ui-1.10.2.custom.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/jquery.mobile-1.3.1.min.css">
+		<link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" />
+		<link rel="stylesheet" type="text/css" href="lib/index.css" />
+		<script type="text/javascript" src="lib/underscore-min.js"></script>
+		<script type="text/javascript" src="lib/backbone-min.js"></script>
+		<script type="text/javascript" src="lib/dust-core-1.0.0.js"></script>
+		<script type="text/javascript" src="jsTemplates/notebooklist.js"></script>
+		<script type="text/javascript" src="jsTemplates/notelist.js"></script>
+		<script type="text/javascript" src="jsTemplates/noteedit.js"></script>
+		<script type="text/javascript" src="jsTemplates/notecontent.js"></script>
+		<script type="text/javascript" src="jsTemplates/usersetting.js"></script>
+		<script type="text/javascript" src="jsTemplates/login.js"></script>
+		<script type="text/javascript" src="jsTemplates/newuser.js"></script>
+		<script type="text/javascript" src="js/notebook.js"></script>
+		<script type="text/javascript" src="js/note.js"></script>
+		<script type="text/javascript" src="js/noteContent.js"></script>
+		<script type="text/javascript" src="js/usersetting.js"></script>
+		<script type="text/javascript" src="js/router.js"></script>
+
+		<script></script>
+	</head>
+
+	<body>
+		<div data-role="page"  id="page1">
+
+			<div data-theme="a" data-role="header" class="header" data-position="fixed">
+				<a data-icon="arrow-l"class="ui-btn-left"id ="goBackButton">Back</a>
+				<h3> Crazty Notes </h3>
+				<a href="#add-notebook" data-icon="plus" style="display:none"class="ui-btn-right"id ="addNewNotebookButton">Notebook</a>
+				<a data-icon="plus" style="display:none"class="ui-btn-right"id ="addNewNoteButton">Note</a>
+			</div>
+			<div class="body" id="content"data-role="content">
+
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li>
+							<a href="#NoteBookList" data-icon="home" id="homeNavi">MyNote</a>
+						</li>
+						<li>
+							<a href="#getPublicBookList" data-icon="grid"id="publicNavi">PublicNote</a>
+						</li>
+						<li>
+							<a href="#Usersetting"data-icon="gear"id="settingNavi">Settings</a>
+						</li>
+					</ul>
+				</div><!-- /navbar -->
+			</div><!-- /footer -->
+
+			<span id="dialogoutput"></span>
+
+			<div data-role="panel" data-position="left" data-display="reveal" id="add-notebook" data-theme="a">
+				<form class="userform">
+					<h2>Create new notebook</h2>
+					<label for="name">Notebook Name</label>
+					<input type="text" name="name" id="newNotebookName" value="" data-clear-btn="true" data-mini="true">
+					<input type="checkbox" name="isPrivateCheckbox" id="isPrivateCheckbox" class="custom" data-mini="true" />
+					<label for="isPrivateCheckbox">Public</label>
+					<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<a data-rel="close" data-role="button" data-theme="c" data-mini="true">Cancel</a>
+						</div>
+						<div class="ui-block-b">
+							<a data-role="button" data-theme="b" data-mini="true" id="createNewNotebookButton">Save</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+
+</html>

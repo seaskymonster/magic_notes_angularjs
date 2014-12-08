@@ -1,0 +1,4 @@
+<a class="notename">{noteName}</a>
+{?ownership}
+<a href="#" class="deleteNoteButton deleteButton" data-rel="popup" data-name="{noteName}"data-id="{noteID}"data-position-to="window" data-transition="pop">Delete</a>
+{/ownership}
