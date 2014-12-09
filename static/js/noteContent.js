@@ -4,7 +4,7 @@ var NoteContent = Backbone.Model.extend({
         //alert('Hey, you create me!');
     },
     url: function(){
-    	return "http://note.creatzy.com/notes/getNoteContent?noteId="+this.id;
+    	return "notes/getNoteContent?noteId="+this.id;
     },
     defaults: {
     	"id":0,
@@ -58,15 +58,21 @@ var NoteContentView = Backbone.View.extend({
 		}
 	},
     initialize:function(options){
-
+        var notecontent=new NoteContent({
+            noteid:options.noteid,
+        });
+        this.model=notecontent;
     	
-    	this.model=new NoteContent({
-    		noteid:options.noteid,
-    	});
+
+    	// this.model=new NoteContent({
+    	// 	noteid:options.noteid,
+    	// });
     	that=this;
-    	this.model.fetch({
+    	notecontent.fetch({  //get data from database;;;
+           
     	    success: function(model) {
-    	       //console.log(model);
+              //  debugger;
+    	       console.log(model.toJSON());   // why this is not the orginal object get from the database...
     	       that.render();
     	    }
     	});

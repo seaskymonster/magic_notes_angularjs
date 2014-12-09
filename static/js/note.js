@@ -140,7 +140,7 @@ var NotesView = Backbone.View.extend({
         $(this.el).html('');   
         this.collection.each(function(note) {
         	console.log(note);
-            var noteView = new NoteView({
+            var noteView = new NoteView({  //noteView
                 model: note,
             });
             $(this.el).prepend(noteView.render());

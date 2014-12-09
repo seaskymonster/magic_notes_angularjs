@@ -33,10 +33,10 @@ var AppRouter = Backbone.Router.extend({
 		"" : "loginView",
 		"NoteBookList" : "noteBookList",  //mark
 		"getPublicBookList" : "getPublicBookList",
-		"NoteBook/:notebookid" : "noteList",  //marking
+		"NoteBook/:notebookid" : "noteList",  //mark
 		"PublicNoteBook/:notebookid" : "publicnoteList",
 		"Usersetting" : "usersetting",
-		"Note/:noteid":"note",
+		"Note/:noteid":"note", //marking
 		"NewNote/:notebookid":"newNote",
 		"NewUser":"newUser",
 	},

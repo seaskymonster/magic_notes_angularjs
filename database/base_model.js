@@ -15,13 +15,31 @@ module.exports =function(){
        	   	   }else{
 
        	   	   	     if(results){ // if you can look up one data...
-       	   	   	     	callback(results);  //in this pop(), it is good when you want to console one item of the json..
+       	   	   	     	callback(results.pop());  //in this pop(), it is good when you want to console one item of the json..
        	   	   	     }else{ // if the pop data is empty.....
        	   	   	    	callback(results);
        	   	   	     }
        	   	   }
        	   });
 	};
+
+this.findAllById=function(tableName,idJson,callback){
+       dbClient.query('SELECT * FROM ' + tableName +' where ?', idJson, 
+           function(error, results){
+               if(error){
+                   console.log('GetData Error:' + error.message);
+                   dbClient.end();
+                   callback(false);// return false;; if there are some error....
+               }else{
+
+                     if(results){ // if you can look up one data...
+                      callback(results);  //in this pop(), it is good when you want to console one item of the json..
+                     }else{ // if the pop data is empty.....
+                      callback(results);
+                     }
+               }
+           });
+  };
 
 	this.insert=function(tableName,rowInfo,callback){
         dbClient.query('INSERT INTO ' +tableName+' SET ?',rowInfo, function(error,result){  //change rowInfo's JSON to "key==value" format

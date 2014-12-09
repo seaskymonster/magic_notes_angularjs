@@ -21,7 +21,7 @@ app.configure(function() {
           var tableName="users";
           var idJson={};
               idJson.id=req.params.id;
-          baseModel.findOneById(tableName,idJson, function(ret){
+          baseModel.findAllById(tableName,idJson, function(ret){
           res.send(ret);
          });
 
@@ -72,7 +72,7 @@ app.configure(function() {
           var tableName="NOTEBOOKS";
           var idJson={};
             idJson.user_id=2;
-            baseModel.findOneById(tableName,idJson, function(ret){
+            baseModel.findAllById(tableName,idJson, function(ret){
             res.send(ret);
          });  
     });
@@ -102,18 +102,28 @@ app.configure(function() {
        //  });
     
 
-      app.get("/notes/getNoteList/:notebookId?", function(req,res){
+      app.get("/notes/getNoteList/:notebookId?", function(req,res){  //get the note list
           var baseModel=new BaseModel();
           var tableName="NOTES";
           var idJson={};
             idJson.notebook_id=req.param('notebookId');
             console.log(req.param('notebookId'));
-            baseModel.findOneById(tableName,idJson, function(ret){
+            baseModel.findAllById(tableName,idJson, function(ret){
             res.send(ret);
          });  
     });
     
-   
+   app.get("/notes/getNoteContent/:noteId?", function(req,res){ //get the note content
+          var baseModel=new BaseModel();
+          var tableName="NOTES";
+          var idJson={};
+            idJson.id=req.param('noteId');
+            console.log(req.param('noteId'));
+            baseModel.findOneById(tableName,idJson, function(ret){
+              console.log(ret);
+            res.send(ret);
+         });  
+    });
 
 
 
