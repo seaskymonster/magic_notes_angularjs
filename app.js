@@ -120,10 +120,52 @@ app.configure(function() {
             idJson.id=req.param('noteId');
             console.log(req.param('noteId'));
             baseModel.findOneById(tableName,idJson, function(ret){
-              console.log(ret);
+           //   console.log(ret);
             res.send(ret);
          });  
     });
+   
+      app.post("/notes/saveNote", function(req,res){
+          var baseModel=new BaseModel();
+          var tableName="NOTES";
+          var rowInfo={};
+          rowInfo.notename=req.body.notename;
+          rowInfo.content=req.body.content;
+         
+          
+          console.log(rowInfo);
+          var idJson={};
+         
+          idJson.id=req.body.noteId;
+          
+          // rowInfo.passowrd_confirm=req.body.password_confirm;
+          baseModel.modify(tableName,idJson,rowInfo,function(ret){
+          console.log(ret);
+          res.send(ret);
+         });
+
+        });
+
+       app.post("/notes/createNote", function(req,res){
+          var baseModel=new BaseModel();
+          var tableName="NOTES";
+          
+          var rowInfo={};
+          rowInfo.notename=req.body.notename;
+          rowInfo.content=req.body.content;
+          rowInfo.notebook_id=req.body.notebookId;
+          var idJson={};
+         
+          idJson.id=req.body.noteId;
+          
+          // rowInfo.passowrd_confirm=req.body.password_confirm;
+          baseModel.update(tableName,idJson,rowInfo,function(ret){
+          console.log(ret);
+          res.send(ret);
+         });
+
+        });
+  
 
 
 

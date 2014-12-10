@@ -34,9 +34,10 @@ var NoteContentView = Backbone.View.extend({
 		if (saveNoteData.notebookId == undefined) {
 			$.ajax({
 				type : "POST",
-				url : "http://note.creatzy.com/notes/saveNote",
+				url : "/notes/saveNote",
 				data : saveNoteData,
 				success : function(res) {
+                    
 					console.log("success");
 					// appRouterInstance.navigate("NoteBook/", {
 					// 	trigger : true
@@ -47,9 +48,10 @@ var NoteContentView = Backbone.View.extend({
 		} else {
 			$.ajax({
 				type : "POST",
-				url : "http://note.creatzy.com/notes/createNote",
+				url : "/notes/createNote",
 				data : saveNoteData,
 				success : function(res) {
+                
 					appRouterInstance.navigate("NoteBook/" + saveNoteData.notebookId, {
 						trigger : true
 					});
