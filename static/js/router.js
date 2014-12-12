@@ -32,11 +32,11 @@ var AppRouter = Backbone.Router.extend({
 		//"search/:query/p:page" : "search", // #search/kiwis/p7
 		"" : "loginView",
 		"NoteBookList" : "noteBookList",  //mark
-		"getPublicBookList" : "getPublicBookList",
+		"getPublicBookList" : "getPublicBookList", //mark
 		"NoteBook/:notebookid" : "noteList",  //mark
 		"PublicNoteBook/:notebookid" : "publicnoteList",
-		"Usersetting" : "usersetting",
-		"Note/:noteid":"note", //marking
+		"Usersetting" : "usersetting", //marking
+		"Note/:noteid":"note", //mark
 		"NewNote/:notebookid":"newNote",
 		"NewUser":"newUser",
 	},

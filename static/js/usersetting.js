@@ -355,6 +355,7 @@ var LoginView = Backbone.View.extend({
 				type : 'POST',
 				url : $(this).attr('action'),
 				success : function(response) {
+					
 					appRouterInstance.navigate("NoteBookList", {
 						trigger : true
 					});

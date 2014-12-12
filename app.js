@@ -31,13 +31,40 @@ app.configure(function() {
           var baseModel=new BaseModel();
           var tableName="users";
           
-          var rowInfo={};
-          console.log(req.body.identity);
-          console.log(req.body.password);
-          var username=req.body.identity;
-          var password=req.body.password;
+          var whereJson={};
+          
+          var orJson={};
+          var andJson1={};
+              andJson1["key"]="username";
+              andJson1["opts"]="=";
+              andJson1["value"]=JSON.stringify(req.body.identity);
+          var andJson2={};
+              andJson2["key"]="password";
+              andJson2["opts"]="=";
+              andJson2["value"]=JSON.stringify(req.body.password);
+
+          var andArr=[andJson1,andJson2];
+          var orArr=[];
+              whereJson["and"]=andArr;
+              whereJson["or"]=orArr;
+          
+         
+          
+          console.log(whereJson);
+          
+
+          // var whereJson={
+          //   'and': [{'key':'username', 'opts':'=', 'value':'""'},
+          //           {'key':'password', 'opts':'=', 'value':'"2760ede5bc23a257c714a0eb93aff50da98eb662"'}],
+          //   'or':[]
+          // };
+
+          var fieldsArr=[];
+          var orderByJson;
+          var limitArr=[];
+
      
-          baseModel.finduser(tableName,username,password,function(ret){
+          baseModel.find(tableName,whereJson,orderByJson,limitArr,fieldsArr,function(ret){
           console.log(ret);
           res.send(ret);
          });
@@ -72,7 +99,31 @@ app.configure(function() {
           var tableName="NOTEBOOKS";
           var idJson={};
             idJson.user_id=2;
+            console.log(req.body.id+"userid");
             baseModel.findAllById(tableName,idJson, function(ret){
+            res.send(ret);
+         });  
+    });
+
+    app.get("/notebook/getPublicBookList", function(req,res){
+          var baseModel=new BaseModel();
+          var tableName="NOTEBOOKS";
+          var whereJson={};
+          
+          var orJson={};
+          var andJson1={};
+              andJson1["key"]="private";
+              andJson1["opts"]="=";
+              andJson1["value"]="0";
+          var andArr=[andJson1];
+          var orArr=[];
+              whereJson["and"]=andArr;
+              whereJson["or"]=orArr;
+          var fieldsArr=[];
+          var orderByJson;
+          var limitArr=[];
+          
+            baseModel.find(tableName,whereJson,orderByJson,limitArr,fieldsArr,function(ret){
             res.send(ret);
          });  
     });

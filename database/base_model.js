@@ -78,26 +78,48 @@ this.findAllById=function(tableName,idJson,callback){
          });
 	};
 
-  this.finduser=function(tableName,username,password,callback){
-        dbClient.query('SELECT * FROM ' + tableName +' where?', [username, password], 
+  this.findbycondition=function(tableName,username,password,callback){
+        console.log(username);
+        console.log(password);
+        dbClient.query('SELECT * FROM ' + tableName +' where'+ username +password, 
           function(error,results){
           if(error){
              console.log("ClientReady Error: "+error.message);
              callback(false);
           }else{
-            callback(true);
+            console.log(results);
+            callback(results.pop());
           }
         });
   };
 
-	this.find=function(tableName, whereStr, orderStr, limitStr, fieldsStr, callback){
-         dbClient.query('SELECT' +fieldsStr +'FROM' +tableName +'where' + andStr + orStr +orderStr +limitStr, function(err,results){
+	this.find=function(tableName, whereJson, orderByJson, limitArr, fieldsArr, callback){
+         var andWhere = whereJson['and'];
+         var orWhere  = whereJson['or'];
+         var andArr   =[] ;
+         var orArr    =[];
+
+         for( var i=0; i<andWhere.length;i++){
+            andArr.push(andWhere[i]['key']+andWhere[i]['opts']+andWhere[i]['value']);
+         }
+
+         for( var i=0; i<orWhere.length;i++){
+            andArr.push(orWhere[i]['key']+orWhere[i]['opts']+orWhere[i]['value']);
+         }
+
+         var fieldsStr= fieldsArr.length>0 ? fieldsArr.join(',') : '*';
+         var andStr= andArr.length>0 ? andArr.join(' AND ') : ' ';
+         var orStr =orArr.length>0 ? ' or ' +orArr.join(' OR ') : ' ';
+         var limitStr= limitArr.length>0 ? 'limit'+limitArr.join(',') : ' ';
+         var orderStr= orderByJson ? ' order by ' +orderByJson['key'] +' '+orderByJson['type'] :' ';
+
+         dbClient.query('SELECT ' +fieldsStr +' FROM ' +tableName +' WHERE ' + andStr + orStr +orderStr +limitStr+';', function(err,results){
           if(err){
             console.log("ClientReady Error: "+err.message);
             dbClient.end();
             callback(false);
           }else{
-            callback(result);
+            callback(results);
           }
          });
 	};
