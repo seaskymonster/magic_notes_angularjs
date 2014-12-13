@@ -11,7 +11,7 @@ var User = Backbone.Model.extend({
 		alert('Hey, you create me!');
 	},
 	url : function() {
-		return "/auth/getUserInfo/:id";
+		return "/auth/getUserInfo";
 	},
 	defaults : {
 		'first_name' : "default",
@@ -298,7 +298,7 @@ var LoginView = Backbone.View.extend({
 	initialize : function(options) {
 		this.model = new User();
 		that = this;
-		console.log("userurl");
+		
 		console.log(user.url());
 		this.model.fetch({
 			success : function(data) {
@@ -355,7 +355,7 @@ var LoginView = Backbone.View.extend({
 				type : 'POST',
 				url : $(this).attr('action'),
 				success : function(response) {
-					
+
 					appRouterInstance.navigate("NoteBookList", {
 						trigger : true
 					});

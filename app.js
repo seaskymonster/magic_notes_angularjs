@@ -4,24 +4,35 @@ var cons = require('consolidate');
 var gzippo = require('gzippo');
 var path = require('path');
 
+var session = require('express-session');
 var BaseModel=require('./database/base_model');
 var app = express();
+
 // var routes = require('./routes/index');
 
 app.configure(function() {
         //app.use(gzippo.staticGzip(__dirname + '/static'));
         app.use(express.static(path.join(__dirname, 'static')));
         //app.use(gzippo.compress());
+        app.use(express.cookieParser());
+        app.use(express.session({secret: 'ssshhhhh'}));
+
         app.use(express.methodOverride());
         app.use(express.bodyParser());
-        app.use(app.router);
 
-        app.get("/auth/getUserInfo/:id", function(req,res){
+        app.use(app.router);
+        var sess;
+
+        app.get("/auth/getUserInfo", function(req,res){
           var baseModel=new BaseModel();
           var tableName="users";
+        
+          sess=req.session;
           var idJson={};
-              idJson.id=req.params.id;
+              console.log(sess.id);
+              idJson.id=sess.id;
           baseModel.findAllById(tableName,idJson, function(ret){
+          console.log(ret);
           res.send(ret);
          });
 
@@ -63,9 +74,11 @@ app.configure(function() {
           var orderByJson;
           var limitArr=[];
 
-     
+         sess=req.session;
+         console.log(sess);
           baseModel.find(tableName,whereJson,orderByJson,limitArr,fieldsArr,function(ret){
-          console.log(ret);
+        
+          
           res.send(ret);
          });
 
@@ -98,7 +111,8 @@ app.configure(function() {
           var baseModel=new BaseModel();
           var tableName="NOTEBOOKS";
           var idJson={};
-            idJson.user_id=2;
+            console.log(sess.id+"session_id");
+            idJson.user_id=sess.id;
             console.log(req.body.id+"userid");
             baseModel.findAllById(tableName,idJson, function(ret){
             res.send(ret);
