@@ -28,11 +28,11 @@ app.configure(function() {
           var tableName="users";
         
           sess=req.session;
-          if(sess.id){
+          if(sess.idx){
                var idJson={};
-                  console.log(sess.id);
-                  idJson.id=sess.id;
-               baseModel.findAllById(tableName,idJson, function(ret){
+                  console.log(sess.idx+"dddddddd");
+                  idJson.id=sess.idx;
+               baseModel.findOneById(tableName,idJson, function(ret){
                console.log(ret);
                res.send(ret);
                }); 
@@ -163,8 +163,9 @@ app.configure(function() {
              rowInfo.name=req.body.strNotebookName;
              rowInfo.private=req.body.isPrivate;
              baseModel.insert(tableName,rowInfo,function(ret){
-                 console.log(ret);
-                 res.send(ret);
+                 
+                 rowInfo.id=ret.insertId;
+                 res.send(rowInfo);
              });
   
         });
@@ -234,7 +235,16 @@ app.configure(function() {
 
         });
   
-
+      app.post("/notebook/deleteBook", function(req,res){
+        var baseModel=new BaseModel();
+        var tableName="NOTEBOOKS";
+        var idJson={};
+        idJson.id=req.body.noteBookId;
+        baseModel.remove(tableName,idJson,function(ret){
+          console.log(ret);
+          res.send(ret);
+        });
+      })
 
 
 

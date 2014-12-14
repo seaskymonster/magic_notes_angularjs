@@ -302,6 +302,7 @@ var LoginView = Backbone.View.extend({
 		console.log(user.url());
 		this.model.fetch({
 			success : function(data) {
+				debugger;
 				console.log("fetch success");
 				user = that.model;
 				if (that.model.get('id') == '') {

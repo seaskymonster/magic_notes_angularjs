@@ -205,8 +205,9 @@ function bindNewBookFunction(newNotebooksView){
 	            data: { strNotebookName: newNotebookName, isPrivate: isPrivate},
 	            success: function (res) { 
 	            	console.log(res);
-	            	//res=jQuery.parseJSON( res );
-	            	res=res[2];
+	            	// res=jQuery.parseJSON( res );
+	            	// console.log(res);
+	            	//res=res[0];
 	                //console.log(res.noteBookInfo);
 	                $("#add-notebook").panel("close");
 	                newNoteBookModel=new Notebook(res);

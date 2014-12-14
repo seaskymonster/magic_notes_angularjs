@@ -50,12 +50,13 @@ var NotebookView = Backbone.View.extend({
 					click : function() {
 						event.preventDefault();
 						$.ajax({
-							url : "http://note.creatzy.com/notebook/deleteBook",
+							type:"POST",
+							url : "/notebook/deleteBook",
 							data : {
 								noteBookId :that.model.get('id')
 							},
 							success : function() {
-								//alert("deleteNotebookButton success");
+								alert("deleteNotebookButton success");
 								return false;
 							},
 						})
