@@ -190,7 +190,7 @@ Backbone.history.start();
 
 function bindNewBookFunction(newNotebooksView){
 	//$("#createNewNotebookButton").off("click"); 
-	$(document).off("click","#createNewNotebookButton");
+	$(document).off("click","#createNewNotebookButton");// createNewNotebookButton is the button on the add new notebook page
 	console.log("cool");
 	$(document).on("click","#createNewNotebookButton",function(){ 
 		//$("#createNewNotebookButton").off("click"); 
@@ -204,8 +204,9 @@ function bindNewBookFunction(newNotebooksView){
 	            url: "/notebook/createNotebook",
 	            data: { strNotebookName: newNotebookName, isPrivate: isPrivate},
 	            success: function (res) { 
-	            	res=jQuery.parseJSON( res );
-	            	res=res[0];
+	            	console.log(res);
+	            	//res=jQuery.parseJSON( res );
+	            	res=res[2];
 	                //console.log(res.noteBookInfo);
 	                $("#add-notebook").panel("close");
 	                newNoteBookModel=new Notebook(res);

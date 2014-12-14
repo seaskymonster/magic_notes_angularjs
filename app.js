@@ -28,13 +28,18 @@ app.configure(function() {
           var tableName="users";
         
           sess=req.session;
-          var idJson={};
-              console.log(sess.id);
-              idJson.id=sess.id;
-          baseModel.findAllById(tableName,idJson, function(ret){
-          console.log(ret);
-          res.send(ret);
-         });
+          if(sess.id){
+               var idJson={};
+                  console.log(sess.id);
+                  idJson.id=sess.id;
+               baseModel.findAllById(tableName,idJson, function(ret){
+               console.log(ret);
+               res.send(ret);
+               }); 
+          }else{
+            res.send(false);
+          }
+         
 
         });
 
@@ -74,12 +79,15 @@ app.configure(function() {
           var orderByJson;
           var limitArr=[];
 
-         sess=req.session;
-         console.log(sess);
+          sess=req.session;
+          sess.username=req.body.identity;
+          sess.password=req.body.password;
+          // console.log(sess.username+"username"+sess.password);
           baseModel.find(tableName,whereJson,orderByJson,limitArr,fieldsArr,function(ret){
-        
-          
-          res.send(ret);
+            var tmp=ret.pop();
+            sess.idx=tmp.id;
+            res.send(tmp);
+
          });
 
         });
@@ -111,9 +119,11 @@ app.configure(function() {
           var baseModel=new BaseModel();
           var tableName="NOTEBOOKS";
           var idJson={};
-            console.log(sess.id+"session_id");
-            idJson.user_id=sess.id;
-            console.log(req.body.id+"userid");
+            sess=req.session;
+            console.log(sess);
+            console.log(sess.idx+"session_id");
+            idJson.user_id=sess.idx;
+            console.log(idJson.user_id);
             baseModel.findAllById(tableName,idJson, function(ret){
             res.send(ret);
          });  
@@ -144,27 +154,20 @@ app.configure(function() {
     
 
 
-       // app.post("notebook/createNotebook", function(req,res){  //create new note book
-       //    var baseModel=new BaseModel();
-       //    var tableName="NOTEBOOKS";
-          
-       //    var rowInfo={};
-          
-       //    rowInfo.first_name=req.body.first_name;
-       //    rowInfo.last_name=req.body.last_name;
-       //    rowInfo.email=req.body.email;
-       //    rowInfo.phone=req.body.phone;
-       //    // rowInfo.phone2=req.body.phone2;
-       //    // rowInfo.phone3=req.body.phone3;
-       //    rowInfo.company=req.body.company;
-       //    rowInfo.password=req.body.password;
-       //    // rowInfo.passowrd_confirm=req.body.password_confirm;
-       //    baseModel.insert(tableName,rowInfo,function(ret){
-       //    console.log(ret);
-       //    res.send(ret);
-       //   });
-
-       //  });
+        app.post("/notebook/createNotebook", function(req,res){  //create new note book
+             var baseModel=new BaseModel();
+             var tableName="NOTEBOOKS";
+             sess=req.session;
+             var rowInfo={};
+             rowInfo.user_id=sess.idx;
+             rowInfo.name=req.body.strNotebookName;
+             rowInfo.private=req.body.isPrivate;
+             baseModel.insert(tableName,rowInfo,function(ret){
+                 console.log(ret);
+                 res.send(ret);
+             });
+  
+        });
     
 
       app.get("/notes/getNoteList/:notebookId?", function(req,res){  //get the note list

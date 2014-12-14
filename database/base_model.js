@@ -48,7 +48,7 @@ this.findAllById=function(tableName,idJson,callback){
             dbClient.end();
             callback(false);
           }else{
-            callback(true);
+            callback(result);
           }
        });
 	};
