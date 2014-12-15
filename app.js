@@ -178,6 +178,11 @@ app.configure(function() {
             idJson.notebook_id=req.param('notebookId');
             console.log(req.param('notebookId'));
             baseModel.findAllById(tableName,idJson, function(ret){
+            // ret.each(function(note){
+            //    note.ownership=true;
+            // });
+
+            console.log(ret);
             res.send(ret);
          });  
     });
@@ -223,12 +228,9 @@ app.configure(function() {
           rowInfo.notename=req.body.notename;
           rowInfo.content=req.body.content;
           rowInfo.notebook_id=req.body.notebookId;
-          var idJson={};
-         
-          idJson.id=req.body.noteId;
-          
+        
           // rowInfo.passowrd_confirm=req.body.password_confirm;
-          baseModel.update(tableName,idJson,rowInfo,function(ret){
+          baseModel.insert(tableName,rowInfo,function(ret){
           console.log(ret);
           res.send(ret);
          });
@@ -246,6 +248,36 @@ app.configure(function() {
         });
       })
 
+      app.post("/notes/deleteNote", function(req,res){
+        var baseModel=new BaseModel();
+        var tableName="NOTES";
+        var idJson={};
+        idJson.id=req.body.noteId;
+        baseModel.remove(tableName,idJson,function(ret){
+          console.log(ret);
+          res.send(ret);
+        });
+      })
+      
+      
+      app.post("/auth/edit_user/:id",function(req,res){
+         var baseModel=new BaseModel();
+         var tableName="users";
+         // sess=req.session;
+         var idJson={};
+         idJson.id=req.params.id;
+         var rowInfo={};
+         rowInfo.first_name=req.body.first_name;
+         rowInfo.last_name=req.body.last_name;
+         rowInfo.email=req.body.email;
+         rowInfo.password=req.body.password;
+         baseModel.modify(tableName,idJson,rowInfo,function(ret){
+          console.log(ret);
+          res.send(ret);
+         });
+
+
+      })
 
 
         app.set('view options', {

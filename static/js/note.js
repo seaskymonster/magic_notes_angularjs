@@ -21,6 +21,7 @@ var Notes = Backbone.Collection.extend({
     notebookid:0,
     initialize: function(options) {
     	this.notebookid=options.notebookid;
+        // this.ownership=options.ownership;  //add by wenlai
     },
     url: function() {
         return "/notes/getNoteList?notebookId="+this.notebookid;
@@ -46,11 +47,15 @@ var NoteView = Backbone.View.extend({
 				'OK' : {
 					click : function() {
 						$.ajax({
-							url : "http://note.creatzy.com/notes/deleteNote",
+							url : "/notes/deleteNote",
+                            type: "POST",
 							data : {
-								noteId :that.model.get('id')
+								noteId :that.model.get('id'),
+                               
 							},
 							success : function() {
+                             
+                                window.history.back();
 								//alert("deleteNotebookButton success");
 								return false;
 							},
@@ -79,13 +84,17 @@ var NoteView = Backbone.View.extend({
  //            "reward_number": this.model.get('rewards').length,
          };
          //console.log(data);
+         // debugger;
+            console.log(this.model.ownership);
          my = this;
-         if(this.model.get('ownership')==true) {
+
+         if(this.model.ownership==true) { //change by wenlai
          	data.ownership=true;
          	//$("#addNewNoteButton").css("display","block");
          }else{
          	//$("#addNewNoteButton").css("display","none");
          }
+         
          dust.render("notelist", data, function(err, out) {
              if(!err) {
                  $(my.el).html(out.toString());
@@ -105,11 +114,12 @@ var NoteView = Backbone.View.extend({
 var NotesView = Backbone.View.extend({
     className: "Notes",
     tagName: "ul",
-    initialize:function(options){
+    initialize:function(options){ //get the notes belong to the user..from the database 
     	this.notebookid=options.notebookid;
     	this.ownership=options.ownership;
     	console.log(this.notebookid);
-    	var notesCollection=new Notes({notebookid:this.notebookid});
+        console.log(this.ownership);
+    	var notesCollection=new Notes({notebookid:this.notebookid});  // owenership is added by wenlai
     	this.collection=notesCollection;
     	that=this;
     	console.log(notesCollection.url());
@@ -122,8 +132,8 @@ var NotesView = Backbone.View.extend({
     	});
     	
     },
-   
-    render: function() {
+    
+    render: function() {  //render the notes belong to the user...
         $(this.el).attr("data-role","listview");
         $(this.el).attr("data-split","d");
         $(this.el).attr("data-filter","true");
@@ -138,9 +148,16 @@ var NotesView = Backbone.View.extend({
         $(this.el).attr("notebook-id",this.notebookid);
 
         $(this.el).html('');   
-        this.collection.each(function(note) {
-        	console.log(note);
-            var noteView = new NoteView({  //noteView
+        this.collection.each(function(note) { //give all the notes collect from database to noteView. to let noteView to render it...
+             
+             if(this.ownership){
+                 note.ownership=true;
+              ///add by wenlai
+             }
+
+             
+                console.log(note);
+            var noteView = new NoteView({  //noteView  // for every note create a NoteView for it
                 model: note,
             });
             $(this.el).prepend(noteView.render());

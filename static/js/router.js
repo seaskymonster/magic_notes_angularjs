@@ -59,14 +59,14 @@ var AppRouter = Backbone.Router.extend({
 		noteContentView = new NoteContentView({
 			noteid:"",
 		});
-		noteContentView.modal = note;
+		noteContentView.model = note;
 
 		console.log("hahahahah" + notebookid);
 		this.changePage(noteContentView);
 
 		$(noteContentView.el).attr("notebook-id",notebookid);
 
-		noteContentView.render();
+		// noteContentView.render();
 		$("#addNewNotebookButton").css("display","none");
 		$("#addNewNoteButton").css("display","none");
 	},

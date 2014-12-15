@@ -8,7 +8,7 @@ function open_in_new_tab(url) {
 
 var User = Backbone.Model.extend({
 	initialize : function() {
-		alert('Hey, you create me!');
+		//alert('Hey, you create me!');
 	},
 	url : function() {
 		return "/auth/getUserInfo";
@@ -302,7 +302,7 @@ var LoginView = Backbone.View.extend({
 		console.log(user.url());
 		this.model.fetch({
 			success : function(data) {
-				debugger;
+				
 				console.log("fetch success");
 				user = that.model;
 				if (that.model.get('id') == '') {

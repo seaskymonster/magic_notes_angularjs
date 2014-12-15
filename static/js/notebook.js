@@ -56,7 +56,7 @@ var NotebookView = Backbone.View.extend({
 								noteBookId :that.model.get('id')
 							},
 							success : function() {
-								alert("deleteNotebookButton success");
+								//alert("deleteNotebookButton success");
 								return false;
 							},
 						})
