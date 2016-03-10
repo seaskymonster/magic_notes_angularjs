@@ -3,12 +3,23 @@ var dbClient;
 var lib = require('../lib');
 
 module.exports = function(api) {
-    api.get('/index', getUser);
-    api.post('/update', updateUser);
-    api.post('/create', createUser);
-    api.post('/delete', deleteUser);
+    api.get('/index/:id', user_get);
+    api.post('/index/:id', user_action);
 
-    function getUser (req, res) {
+
+    function user_action (req, res) {
+        switch(req.query['action']) {
+            case 'create': {
+                user_create(req, res);
+            } break;
+            default: {
+                res.send(400);
+                return;
+            }
+        }
+    };
+
+    function user_get (req, res) {
         var session = req.session;
         if(session.idx) {
             lib.user.getById(req, session.idx).then(function(result){
@@ -19,7 +30,7 @@ module.exports = function(api) {
         }
     };
 
-    function createUser (req, res){
+    function user_create (req, res){
         var ur = req.body;
         if(ur.id || typeof ur.email !='string' || ur.email.length == 0) return res.send(400);
         lib.user.getByEmail(req, ur.email).then(function(user){

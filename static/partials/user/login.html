@@ -1,5 +1,5 @@
-<form action="http://note.creatzy.com/auth/login" id="loginForm" "method="POST">
-<div data-role="fieldcontain">
+
+<div data-role="fieldcontain" ng-controller = "UserController">
     <label for="textinput1">Username</label>
     <input name="identity" id="textinput1" placeholder="" value="admin@admin.com" type="text" />
 </div>
@@ -12,10 +12,9 @@
         <a data-role="button">Forgot</a>
     </div>
     <div class="ui-block-b">
-        <a data-role="button" id="loginSubmit">Submit</a>
+        <a data-role="button" ng-click ="login()" id="loginSubmit">Submit</a>
     </div>
     <div class="ui-block-c">
-        <a data-role="button" id="createUser"data-theme="b">New</a>
+        <a data-role="button" ng-click = "addNewUser()" id="createUser" data-theme="b">New</a>
     </div>
 </div>
-</form>

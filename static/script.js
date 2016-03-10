@@ -1,5 +1,5 @@
 var noteApp = angular.module('noteApp', [
-    'ngRoute'
+    'ngRoute','ngResource'
 ]);
 
 noteApp.config(['$routeProvider',
@@ -13,11 +13,7 @@ noteApp.config(['$routeProvider',
                 templateUrl: 'partials/user/newuser.html',
                 controller: 'UserController'
             }).
-            when('/phones/:phoneId', {
-                templateUrl: 'partials/phone-detail.html',
-                controller: 'PhoneDetailCtrl'
-            }).
             otherwise({
-                redirectTo: '/phones'
+                redirectTo: '/'
             });
     }]);
