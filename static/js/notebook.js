@@ -137,7 +137,7 @@ var NotebooksView = Backbone.View.extend({
 		});
 		this.collection = notebooksCollection;
 		that = this;
-		notebooksCollection.fetch({   //get the notebooks from database;
+		notebooksCollection.fetch({   //get the notebooks from api;
 			success : function(collection) {
                 console.log(collection.toJSON());
 				//$('#content').html(myNotebooksView.render());

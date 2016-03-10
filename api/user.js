@@ -1,9 +1,35 @@
-var Util=require('./util'); // you need to know what is Util
-var mysql=require('mysql');  // you need to know what is mysql..
 var dbClient;
 
-module.exports =function(){
-	_constructor();
+var lib = require('../lib');
+
+module.exports = function(api) {
+    api.get('/index', getUser);
+    api.post('/update', updateUser);
+    api.post('/create', createUser);
+    api.post('/delete', deleteUser);
+
+    function getUser (req, res) {
+        var session = req.session;
+        if(session.idx) {
+            lib.user.getById(req, session.idx).then(function(result){
+                res.send(result);
+            })
+        }else{
+            res.send(false);
+        }
+    };
+
+    function createUser (req, res){
+        var ur = req.body;
+        if(ur.id || typeof ur.email !='string' || ur.email.length == 0) return res.send(400);
+        lib.user.getByEmail(req, ur.email).then(function(user){
+            if(user != null) return lib.user.save(req, ur);
+            else return Promise.reject(new Error("User already exists"));
+        }).then(function(result){
+
+        })
+    };
+
 
 	this.findOneById=function(tableName,idJson,callback){
        dbClient.query('SELECT * FROM ' + tableName +' where ?', idJson, 
@@ -137,7 +163,7 @@ this.findAllById=function(tableName,idJson,callback){
 		dbClient=mysql.createConnection(client);  //create the connection object... 
 		dbClient.connect();  //connect to mysql...
 
-		dbClient.query('USE '+dbConfig['dbName'], function(error, results){  // USE is used to connect MYSQL's one database....
+		dbClient.query('USE '+dbConfig['dbName'], function(error, results){  // USE is used to connect MYSQL's ....
 			if(error){
 				console.log('ClientConnectionReady Error:'+ error.message);
 				dbClient.end();

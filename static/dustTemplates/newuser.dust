@@ -1,4 +1,4 @@
-<form action="http://note.creatzy.com/auth/create_user" id="newUserForm" "method="POST">
+<form action="http://note.creatzy.com/api/user/create" id="newUserForm" "method="POST">
     <div data-role="fieldcontain">
         <label for="firstname" class = "ui-input-text">First Name:</label>
         <input type="text" name="first_name" id="newUserFirstname"value=""  />

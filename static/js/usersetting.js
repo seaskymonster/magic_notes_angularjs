@@ -11,7 +11,7 @@ var User = Backbone.Model.extend({
 		//alert('Hey, you create me!');
 	},
 	url : function() {
-		return "/auth/getUserInfo";
+		return "../../api/user/index";
 	},
 	defaults : {
 		'first_name' : "default",

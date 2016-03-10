@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 
-var BaseModel=require('../database/base_model');
+//var BaseModel = require('./api/user');
 
 router.get('/', function(req, res) {
   res.render('index', { title: 'Home' });

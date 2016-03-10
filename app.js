@@ -5,13 +5,14 @@ var gzippo = require('gzippo');
 var path = require('path');
 
 var session = require('express-session');
-var BaseModel=require('./database/base_model');
+var api= require('./api');
+var http = require('http');
+var path = require('path');
 var app = express();
 
 // var routes = require('./routes/index');
 
 app.configure(function() {
-        //app.use(gzippo.staticGzip(__dirname + '/static'));
         app.use(express.static(path.join(__dirname, 'static')));
         //app.use(gzippo.compress());
         app.use(express.cookieParser());
@@ -21,27 +22,36 @@ app.configure(function() {
         app.use(express.bodyParser());
 
         app.use(app.router);
+        var env = process.env.NODE_ENV || 'development';
+        // development only
+        if (env === 'development') {
+             app.use(express.errorHandler());
+         }
+         // production only
+        if (env === 'production') {
+             // TODO
+        }
         var sess;
 
-        app.get("/auth/getUserInfo", function(req,res){
-          var baseModel=new BaseModel();
-          var tableName="users";
-        
-          sess=req.session;
-          if(sess.idx){
-               var idJson={};
-                  console.log(sess.idx+"dddddddd");
-                  idJson.id=sess.idx;
-               baseModel.findOneById(tableName,idJson, function(ret){
-               console.log(ret);
-               res.send(ret);
-               }); 
-          }else{
-            res.send(false);
-          }
-         
-
-        });
+        //app.get("/auth/getUserInfo", function(req,res){
+        //  var baseModel=new BaseModel();
+        //  var tableName="users";
+        //
+        //  sess=req.session;
+        //  if(sess.idx){
+        //       var idJson={};
+        //          console.log(sess.idx+"dddddddd");
+        //          idJson.id=sess.idx;
+        //       baseModel.findOneById(tableName,idJson, function(ret){
+        //       console.log(ret);
+        //       res.send(ret);
+        //       });
+        //  }else{
+        //    res.send(false);
+        //  }
+        //
+        //
+        //});
 
          app.post("/auth/login", function(req,res){
           var baseModel=new BaseModel();

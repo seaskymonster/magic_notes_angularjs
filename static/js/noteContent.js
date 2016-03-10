@@ -70,11 +70,11 @@ var NoteContentView = Backbone.View.extend({
     	// 	noteid:options.noteid,
     	// });
     	that=this;
-    	notecontent.fetch({  //get data from database;;;
+    	notecontent.fetch({  //get data from api;;;
            
     	    success: function(model) {
               //  debugger;
-    	       console.log(model.toJSON());   // why this is not the orginal object get from the database...
+    	       console.log(model.toJSON());   // why this is not the orginal object get from the api...
     	       that.render();
     	    }
     	});

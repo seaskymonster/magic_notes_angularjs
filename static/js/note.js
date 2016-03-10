@@ -114,7 +114,7 @@ var NoteView = Backbone.View.extend({
 var NotesView = Backbone.View.extend({
     className: "Notes",
     tagName: "ul",
-    initialize:function(options){ //get the notes belong to the user..from the database 
+    initialize:function(options){ //get the notes belong to the user..from the api
     	this.notebookid=options.notebookid;
     	this.ownership=options.ownership;
     	console.log(this.notebookid);
@@ -123,7 +123,7 @@ var NotesView = Backbone.View.extend({
     	this.collection=notesCollection;
     	that=this;
     	console.log(notesCollection.url());
-    	notesCollection.fetch({  //fetch data from database;;
+    	notesCollection.fetch({  //fetch data from api;;
     	    success: function(collection) {
     	       console.log(collection);
     	       that.render();
@@ -148,7 +148,7 @@ var NotesView = Backbone.View.extend({
         $(this.el).attr("notebook-id",this.notebookid);
 
         $(this.el).html('');   
-        this.collection.each(function(note) { //give all the notes collect from database to noteView. to let noteView to render it...
+        this.collection.each(function(note) { //give all the notes collect from api to noteView. to let noteView to render it...
              
              if(this.ownership){
                  note.ownership=true;
